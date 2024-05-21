@@ -35,62 +35,76 @@ public class BorrowManager {
 
                 // 이미 대출중인 책
                 if (resultSet.next()) {
-
-                    System.out.println("이미 대출중인 책입니다.");
-
-                    // 예약중인 책인지 확인
-                    String query2 =
-                            "SELECT * FROM reservations, books WHERE books.book_id = reservations.book_id AND title = ?";
-                    preparedStatement = connection.prepareStatement(query2);
+                    // 대출중인 책인지 확인
+                    String query9 =
+                            "SELECT * FROM borrowing, books WHERE books.book_id = borrowing.book_id AND title = ? AND member_id = ?";
+                    preparedStatement = connection.prepareStatement(query9);
                     preparedStatement.setString(1,book_name);
+                    preparedStatement.setInt(2,user_id);
                     resultSet = preparedStatement.executeQuery();
 
-
-
-                    // 이미 대출 & 예약중인 책
-                    if (resultSet.next()) {
-                        System.out.println("이미 예약중인 책입니다.");
-                        System.out.println("대출과 예약이 모두 불가능합니다.");
+                    if (resultSet.next()){
+                        System.out.println("이미 같은 책을 대출하셨습니다.");
                         System.out.println("대출/예약 서비스를 종료합니다.");
                         System.out.println("------------------------------------------");
                     }
-                    // 대출했으나 예약은 가능한 책
-                    else {
-                        System.out.println("예약할 수 있는 책입니다. 예약하시겠습니까? (예 / 아니오): ");
-                        String reserve = scanner.next();
-                        if (reserve.equals("예")){
-                            // 예약을 위해 반납날짜와 책 아이디 가져오기
-                            String query3 =
-                                    "SELECT borrowing.book_id, borrowing.return_date FROM borrowing, books WHERE books.book_id = borrowing.book_id AND title = ?";
-                            preparedStatement = connection.prepareStatement(query3);
-                            preparedStatement.setString(1,book_name);
-                            resultSet = preparedStatement.executeQuery();
-                            if (resultSet.next()) {
-                                date = resultSet.getString("return_date");
-                                b_id = resultSet.getString("book_id");
-                            }
+                    else{
+                        System.out.println("이미 대출중인 책입니다.");
+
+                        // 예약중인 책인지 확인
+                        String query2 =
+                                "SELECT * FROM reservations, books WHERE books.book_id = reservations.book_id AND title = ?";
+                        preparedStatement = connection.prepareStatement(query2);
+                        preparedStatement.setString(1,book_name);
+                        resultSet = preparedStatement.executeQuery();
 
 
-                            // 예약하기: 예약 table에 삽입
-                            String query4 =
-                                    "INSERT INTO reservations (book_id, member_id, reservation_date, reservation_status) VALUES (?, ?, ?, ?)";
-                            preparedStatement = connection.prepareStatement(query4);
-                            preparedStatement.setString(1,b_id);
-                            preparedStatement.setInt(2,user_id);
-                            preparedStatement.setString(3, (addDays(date, 1)));
-                            preparedStatement.setString(4,"예약중");
-                            preparedStatement.executeUpdate();
 
-                            System.out.println("'" + book_name + "'" + "책이 예약되었습니다.");
-                            System.out.println("대출할 수 있는 날짜는 " + (addDays(date, 1)) + "부터입니다.");
+                        // 이미 대출 & 예약중인 책
+                        if (resultSet.next()) {
+                            System.out.println("이미 예약중인 책입니다.");
+                            System.out.println("대출과 예약이 모두 불가능합니다.");
                             System.out.println("대출/예약 서비스를 종료합니다.");
                             System.out.println("------------------------------------------");
                         }
-                        // 예약도 대출도 안 함
-                        else{
-                            System.out.println("감사합니다.");
-                            System.out.println("대출/예약 서비스를 종료합니다.");
-                            System.out.println("------------------------------------------");
+                        // 대출했으나 예약은 가능한 책
+                        else {
+                            System.out.println("예약할 수 있는 책입니다. 예약하시겠습니까? (예 / 아니오): ");
+                            String reserve = scanner.next();
+                            if (reserve.equals("예")) {
+                                // 예약을 위해 반납날짜와 책 아이디 가져오기
+                                String query3 =
+                                        "SELECT borrowing.book_id, borrowing.return_date FROM borrowing, books WHERE books.book_id = borrowing.book_id AND title = ?";
+                                preparedStatement = connection.prepareStatement(query3);
+                                preparedStatement.setString(1, book_name);
+                                resultSet = preparedStatement.executeQuery();
+                                if (resultSet.next()) {
+                                    date = resultSet.getString("return_date");
+                                    b_id = resultSet.getString("book_id");
+                                }
+
+
+                                // 예약하기: 예약 table에 삽입
+                                String query4 =
+                                        "INSERT INTO reservations (book_id, member_id, reservation_date, reservation_status) VALUES (?, ?, ?, ?)";
+                                preparedStatement = connection.prepareStatement(query4);
+                                preparedStatement.setString(1, b_id);
+                                preparedStatement.setInt(2, user_id);
+                                preparedStatement.setString(3, (addDays(date, 1)));
+                                preparedStatement.setString(4, "예약중");
+                                preparedStatement.executeUpdate();
+
+                                System.out.println("'" + book_name + "'" + "책이 예약되었습니다.");
+                                System.out.println("대출할 수 있는 날짜는 " + (addDays(date, 1)) + "부터입니다.");
+                                System.out.println("대출/예약 서비스를 종료합니다.");
+                                System.out.println("------------------------------------------");
+                            }
+                            // 예약도 대출도 안 함
+                            else {
+                                System.out.println("감사합니다.");
+                                System.out.println("대출/예약 서비스를 종료합니다.");
+                                System.out.println("------------------------------------------");
+                            }
                         }
                     }
                 }
@@ -155,6 +169,6 @@ public class BorrowManager {
     }
 
     public static void main(String[] args) {
-        borrowBook(10, "죽음의 수용소에서");
+        borrowBook(12, "행복한 마음");
     }
 }
