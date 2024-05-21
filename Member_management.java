@@ -14,11 +14,9 @@ public class Member_management {
         }
         catch (
                 SQLException e) {
-                    System.err.println("연결 오류" + e.getMessage());
+                    System.err.println("There was a connection error." + e.getMessage());
                 e.printStackTrace();
         }
-
-
         String sql = "UPDATE members SET email=?, phone_number=? where member_id=?";
         PreparedStatement pstm = null;
         try {
@@ -28,14 +26,13 @@ public class Member_management {
             pstm.setInt(3,user_id);
             int count = pstm.executeUpdate();
             if (count >0) {
-                System.out.println("수정 성공");
+                System.out.println("Successfully modified.");
             } else {
-                System.out.println("수정 실패");
+                System.out.println("Failed to modify.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            //5. DB종료
             try {
                 pstm.close();
                 con.close();
