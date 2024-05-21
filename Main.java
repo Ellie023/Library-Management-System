@@ -24,24 +24,61 @@ public class Main {
                 case 2:
                     System.out.println("Borrow Book Function");
                     Scanner scanner2 = new Scanner(System.in);
-                    System.out.print("Enter the member's ID to borrow: ");
-                    String member_name = scanner2.next();
+                    int user_id2;
+                    String book_title2;
+                    while (true) {
+                        System.out.print("Enter the member's ID to borrow: ");
+                        user_id2 = scanner2.nextInt();
+                        scanner2.nextLine();
+                        if (InputValidator.is_Valid_Memberid(user_id2)) {
+                            break;
+                        }
+                        else {
+                            System.out.println("Invalid the member's ID. Please try again.");
+                        }
+                    }
                     System.out.print("Enter the title of the book to borrow: ");
-                    int book_title = scanner2.nextInt();
-                    //if(2개의 테이블에서 tutle이 없음)
-                    // 대출 로직 추가 (예: Loan_management.loanBook(member_name, title);)
-                    //else if(borrowing table에 있고  reservations table에 없음)
-                    //예약하기
-                    //else if(borrowing table에 없고 reservation table에는 있음)
-                         //if(name_id 확인)
-                        //일치 시 예약 로직
-                        //불일치 시 대출불가
-
-                    //else if(2개의 table 모두 있음)
-                    //대출불가
+                    while   (true) {
+                        System.out.print("Enter the title of the book to borrow: ");
+                        book_title2 = scanner2.next();
+                        scanner2.nextLine();
+                        if (InputValidator.is_vaild_Booktitle(book_title2)) {
+                            break;
+                        }
+                        else {
+                            System.out.println("Invalid the title of the book. Please try again.");
+                        }
+                    }
+                    //borrowBook(user_id2,book_title2)
                     break;
                 case 3:
                     System.out.println("Return Book Function");
+                    Scanner scanner3 = new Scanner(System.in);
+                    int user_id3;
+                    String book_title3;
+                    while (true) {
+                        System.out.print("Enter the member's ID to return: ");
+                        user_id3 = scanner3.nextInt();
+                        scanner3.nextLine();
+                        if (InputValidator.is_Valid_Memberid(user_id3)) {
+                            break;
+                        }
+                        else {
+                            System.out.println("Invalid the member's ID. Please try again.");
+                        }
+                    }
+                    while (true) {
+                        System.out.print("Enter the title of the book to return: ");
+                        book_title3 = scanner3.next();
+                        scanner3.nextLine();
+                        if (InputValidator.is_vaild_Booktitle(book_title3)) {
+                            break;
+                        }
+                        else {
+                            System.out.println("Invalid the title of the book. Please try again.");
+                        }
+                    }
+                    //ReturnManager.returnBook(user_id3,book_title3)
                     break;
                 case 4:
                     System.out.println("User Loan Status");
@@ -50,14 +87,25 @@ public class Main {
                 case 5:
                     System.out.println("Update Member Information");
                     Scanner scanner5 = new Scanner(System.in);
-                    System.out.print("Enter the ID of the member to update: ");
-                    int userId5 = scanner5.nextInt();
-                    System.out.print("Enter the email of the member to update: ");
-                    String email = scanner5.next();
-                    System.out.print("Enter the phone number of the member to update (000-1111-2222): ");
-                    String phone = scanner5.next();
-                    Member_management.updateMember(userId5, email, phone);
-                    break;
+                    int user_id5;
+                    String email,phone;
+                    while (true) {
+                        System.out.print("Enter the ID of the member to update: ");
+                        user_id5 = scanner5.nextInt();
+                        scanner5.nextLine();
+                        if (InputValidator.is_Valid_Memberid(user_id5)) {
+                            break;
+                        }
+                        else {
+                            System.out.println("Invalid the member's ID. Please try again.");
+                        }
+                    }
+                        System.out.print("Enter the email of the member to update: ");
+                        email = scanner5.next();
+                        System.out.print("Enter the phone number of the member to update (000-1111-2222): ");
+                        phone = scanner5.next();
+                        Member_management.updateMember(user_id5, email, phone);
+                        break;
                 case 6:
                     System.out.println("Exiting the program.");
                     break;
