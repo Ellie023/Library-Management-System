@@ -11,9 +11,11 @@ public class Member_management {
 
         try {
             con = DatabaseConnection.getConnection();
-        } catch (SQLException e) {
-            System.err.println("There was a connection error." + e.getMessage());
-            e.printStackTrace();
+        }
+        catch (
+                SQLException e) {
+                    System.err.println("There was a connection error." + e.getMessage());
+                e.printStackTrace();
         }
         String sql = "UPDATE members SET email=?, phone_number=? where member_id=?";
         PreparedStatement pstm = null;
@@ -21,9 +23,9 @@ public class Member_management {
             pstm = con.prepareStatement(sql);
             pstm.setString(1, email);
             pstm.setString(2, phone);
-            pstm.setInt(3, user_id);
+            pstm.setInt(3,user_id);
             int count = pstm.executeUpdate();
-            if (count > 0) {
+            if (count >0) {
                 System.out.println("이메일과 전화번호가 변경되었습니다.");
 
             } else {
@@ -31,6 +33,7 @@ public class Member_management {
             }
 
             System.out.println("회원정보 수정 서비스를 종료합니다.");
+            System.out.println("------------------------------------------");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
