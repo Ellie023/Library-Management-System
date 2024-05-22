@@ -8,8 +8,8 @@ public class Main {
         int choice;
         do {
             System.out.println("------------------------------------------");
-            System.out.println("Library Management System Home");
-            System.out.println("1: 종류 별 책 보유 현황 보기");
+            System.out.println("Library Management System");
+            System.out.println("1: 종류별 책 보유 현황 보기");
             System.out.println("2: 책 대출");
             System.out.println("3: 책 반납");
             System.out.println("4: 사용자별 대출 현황");
@@ -20,7 +20,7 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    System.out.println("[[종류 별 책 보유 현황 보기]]");
+                    System.out.println("[[종류별 책 보유 현황 보기]]");
                     Scanner scanner1 = new Scanner(System.in);
                     System.out.print("책 종류를 입력하세요: ");
                     String genre =scanner1.next();
@@ -44,8 +44,8 @@ public class Main {
                     }
                     while   (true) {
                         System.out.print("대출할 책의 제목을 입력하세요: ");
-                        book_title2 = scanner2.next();
-                        scanner2.nextLine();
+                        book_title2 = scanner2.nextLine();
+                        System.out.println(book_title2);
                         if (InputValidator.is_vaild_Booktitle(book_title2)) {
                             break;
                         }
@@ -73,7 +73,7 @@ public class Main {
                     }
                     while (true) {
                         System.out.print("반납 할 책의 제목을 입력하세요: ");
-                        book_title3 = scanner3.next();
+                        book_title3 = scanner3.nextLine();
                         scanner3.nextLine();
                         if (InputValidator.is_vaild_Booktitle(book_title3)) {
                             break;
@@ -89,7 +89,7 @@ public class Main {
                     Scanner scanner4 = new Scanner(System.in);
                     int user_id4;
                     while (true) {
-                        System.out.print("수정 할 회원의 ID를 입력하세요: ");
+                        System.out.print("회원의 ID를 입력하세요: ");
                         user_id4=scanner4.nextInt();
                         scanner4.nextLine();
                         if (InputValidator.is_Valid_Memberid(user_id4)) {
