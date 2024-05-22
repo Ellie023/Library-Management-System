@@ -46,7 +46,7 @@ public class Main {
                     while   (true) {
                         System.out.print("대출할 책의 제목을 입력하세요: ");
                         book_title2 = scanner2.nextLine();
-                        System.out.println(book_title2);
+                      
                         if (InputValidator.is_vaild_Booktitle(book_title2)) {
                             break;
                         }
@@ -74,7 +74,7 @@ public class Main {
                     while (true) {
                         System.out.print("반납 할 책의 제목을 입력하세요: ");
                         book_title3 = scanner3.nextLine();
-                        scanner3.nextLine();
+         
                         if (InputValidator.is_vaild_Booktitle(book_title3)) {
                             break;
                         }
