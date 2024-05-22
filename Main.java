@@ -22,7 +22,7 @@ public class Main {
                 case 1:
                     System.out.println("[[종류 별 책 보유 현황 보기]]");
                     Scanner scanner1 = new Scanner(System.in);
-                    System.out.println("책 종류를 입력하세요: ");
+                    System.out.print("책 종류를 입력하세요: ");
                     String genre =scanner1.next();
                     BookGenre.numberOfBooksByGenre(genre);
                     break;
