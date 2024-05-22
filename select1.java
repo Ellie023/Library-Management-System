@@ -5,23 +5,14 @@ import java.util.Scanner;
 //사용자가 자신의 ID를 입력하면, 자신의 도서 대출현황을 알 수 있는 menu
 public class select1 {
     public static void printBorrowedBooks(int ID) {
-        Connection con = null;
-
-        try {
-            con = DatabaseConnection.getConnection();
-        }
-        catch (
-                SQLException e) {
-            System.err.println("There was a connection error." + e.getMessage());
-            e.printStackTrace();
-        }
+        Connection connection = DatabaseConnection.getConnection();
         PreparedStatement selectBooksStmt = null;
         ResultSet booksResultSet = null;
         try {
             // SQL QUERY - createSchema.sql에서 만든 MemberBorrowedBooks라는 VIEW를 활용.
             // 해당 view의 member_id가 사용자의 입력값(ID)와 일치하는 튜플만을 SELECT
             String selectBooksSQL = "SELECT * FROM MemberBorrowedBooks WHERE member_id = ? ";
-            selectBooksStmt = con.prepareStatement(selectBooksSQL); //PreparedStatement의 selectBooksStmt 객체를 생성.
+            selectBooksStmt = connection.prepareStatement(selectBooksSQL); //PreparedStatement의 selectBooksStmt 객체를 생성.
             selectBooksStmt.setInt(1, ID); //setString 메서드를 통해 사용자의 input으로 받은 ID 값이 SQL 쿼리의 ? 자리에 바인딩
             booksResultSet = selectBooksStmt.executeQuery(); //selectBooksSQL을 실행하고 그 결과를 가져와서 ResultSet 객체인 booksResultSet에 저장
 

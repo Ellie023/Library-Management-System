@@ -1,9 +1,10 @@
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Scanner sc = new Scanner(System.in);
         int choice;
         do {
@@ -63,7 +64,6 @@ public class Main {
                     while (true) {
                         System.out.print("반납을 하는 회원의 ID를 입력하세요: ");
                         user_id3 = scanner3.nextInt();
-                        scanner3.nextLine();
                         if (InputValidator.is_Valid_Memberid(user_id3)) {
                             break;
                         }

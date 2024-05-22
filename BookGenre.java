@@ -5,17 +5,15 @@ import java.sql.SQLException;
 
 public class BookGenre {
     public static void numberOfBooksByGenre(String genre) {
-        Connection con = null;
-        PreparedStatement pstm = null;
+ PreparedStatement pstm = null;
         ResultSet resultSet = null;
-
+        Connection connection = DatabaseConnection.getConnection();
         try {
-            con = DatabaseConnection.getConnection();
 
             // 쿼리문
             String sql = "SELECT genre, count(genre) AS total_number FROM books GROUP BY genre having genre=?";
 
-            pstm = con.prepareStatement(sql);
+            pstm = connection.prepareStatement(sql);
             pstm.setString(1, genre);
 
             resultSet = pstm.executeQuery();
@@ -32,7 +30,7 @@ public class BookGenre {
 
             resultSet.close();
             pstm.close();
-            con.close();
+            connection.close();
         }
         catch (SQLException e) {
             e.printStackTrace();

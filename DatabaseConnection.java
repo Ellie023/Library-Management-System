@@ -4,18 +4,28 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
 
-    private static final String server = "jdbc:mysql://localhost:3306/library"; // 서버 주소
-    private static final String user_name = "yelin"; // 접속자 id
-    private static final String password = "1248"; // 접속자 pw
-
-    public static Connection getConnection() throws SQLException {
+    // Method to establish connection
+    public static Connection getConnection() {
+        Connection connection = null;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver"); // 드라이버 로드
+            // Load the JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Database URL, username, and password
+            String url = "jdbc:mysql://localhost:3306/library";
+            String user = "yelin";  // replace with your MySQL username
+            String password = "1248";  // replace with your MySQL password
+
+            // Establish the connection
+            connection = DriverManager.getConnection(url, user, password);
         } catch (ClassNotFoundException e) {
+            System.err.println("JDBC Driver not found.");
             e.printStackTrace();
-            throw new SQLException("MySQL 드라이버 로드 실패", e);
+        } catch (SQLException e) {
+            System.err.println("Failed to establish connection.");
+            e.printStackTrace();
         }
-        return DriverManager.getConnection(server, user_name, password);
+        return connection;
     }
 }
 

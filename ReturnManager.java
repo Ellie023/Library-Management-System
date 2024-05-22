@@ -5,16 +5,7 @@ import java.util.Scanner;
 
 public class ReturnManager {
     public static void returnBook(int user_id, String book_name) {
-        Connection connection = null;
-
-        try {
-            connection = DatabaseConnection.getConnection();
-        }
-        catch (
-                SQLException e) {
-            System.err.println("There was a connection error." + e.getMessage());
-            e.printStackTrace();
-        }
+        Connection connection = DatabaseConnection.getConnection();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
