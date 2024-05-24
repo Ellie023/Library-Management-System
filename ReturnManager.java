@@ -3,7 +3,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+// 반납 시스템 관리하는 클래스
 public class ReturnManager {
+
+    // 반납 핵심 메소드
     public static void returnBook(int user_id, String book_name) {
         Connection connection = DatabaseConnection.getConnection();
         PreparedStatement preparedStatement = null;
@@ -41,17 +44,9 @@ public class ReturnManager {
                     System.out.println("회원 정보를 찾을 수 없습니다.");
                 }
             }
-
+        // 예외 처리
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (resultSet != null) resultSet.close();
-                if (preparedStatement != null) preparedStatement.close();
-                if (connection != null) connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        } 
     }
 }
