@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+// 대출과 예약 관련 클래스
 public class BorrowManager {
 
     // 날짜 계산해주는 함수 (+1일, +14일 등)
@@ -13,11 +14,13 @@ public class BorrowManager {
         return newDate.format(formatter);
     }
 
+    // 대출과 예약 핵심 메소드
     public static void borrowBook(int user_id, String book_name) throws SQLException {
         Scanner scanner = new Scanner(System.in);
         Connection connection = DatabaseConnection.getConnection();
         ResultSet resultSet = null;
 
+        // 만약 데이터베이스와의 연결이 제대로 이뤄졌다면 진행
         if (connection != null) {
             try {
                 boolean borrow = false; // 대출 가능 = false, 대출 중 = true
@@ -118,6 +121,7 @@ public class BorrowManager {
                             }
                             return;
                         } else {
+                            // 대출 불가, 예약 불가
                             System.out.println("이미 예약중인 책입니다.");
                             System.out.println("대출과 예약이 모두 불가능합니다.");
                             System.out.println("대출/예약 서비스를 종료합니다.");
@@ -176,6 +180,7 @@ public class BorrowManager {
                     System.out.println("------------------------------------------");
                     return;
                 }
+            // 예외 처리
             } catch (SQLException e) {
                 e.printStackTrace();
             }
