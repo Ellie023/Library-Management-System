@@ -34,9 +34,9 @@ public class InputValidator {
         }
     }
     public static boolean is_vaild_Booktitle(String title){
-        String checkSQL="select title from Books where title=?";
+        String checkSQL="SELECT title from Books where title=?";
         try(Connection con=DatabaseConnection.getConnection();
-        PreparedStatement pstmt = con.prepareStatement(checkSQL)){
+            PreparedStatement pstmt = con.prepareStatement(checkSQL)){
             pstmt.setString(1,title);
             ResultSet rs=pstmt.executeQuery();
             return rs.next();
