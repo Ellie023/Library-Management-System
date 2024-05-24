@@ -45,7 +45,6 @@ public class Main {
                     while (true) {
                         System.out.print("대출할 책의 제목을 입력하세요: ");
                         book_title2 = scanner2.nextLine(); // 대출 할 책의 제목 입력
-                        System.out.println(book_title2);
                         if (InputValidator.is_vaild_Booktitle(book_title2)) {
                             break;// input 값 유효성 검사, 도서관에서 보유한 책이 아니면 다시 입력
                         } else {
