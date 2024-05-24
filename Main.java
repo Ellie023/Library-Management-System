@@ -64,6 +64,7 @@ public class Main {
                     while (true) {
                         System.out.print("반납을 하는 회원의 ID를 입력하세요: ");
                         user_id3 = scanner3.nextInt();
+                        scanner3.nextLine();
                         if (InputValidator.is_Valid_Memberid(user_id3)) {
                             break;
                         }
@@ -71,18 +72,10 @@ public class Main {
                             System.out.println("존재하지 않는 회원입니다. 회원의 ID를 다시 입력하세요.");
                         }
                     }
-                    while (true) {
                         System.out.print("반납 할 책의 제목을 입력하세요: ");
                         book_title3 = scanner3.nextLine();
-                        scanner3.nextLine();
-                        if (InputValidator.is_vaild_Booktitle(book_title3)) {
-                            break;
-                        }
-                        else {
-                            System.out.println("책이 존재하지 않습니다. 책의 제목을 다시 입력하세요.");
-                        }
-                    }
                     ReturnManager.returnBook(user_id3,book_title3);
+                    scanner3.nextLine();
                     break;
                 case 4:
                     System.out.println("[[사용자별 대출 현황]]");
