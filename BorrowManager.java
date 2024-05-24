@@ -59,6 +59,7 @@ BorrowManager {
                             "SELECT book_id FROM books WHERE title = ?";
                     try {
                         preparedStatement = connection.prepareStatement(query6);
+                        preparedStatement.setString(1, book_name);
                         resultSet = preparedStatement.executeQuery();
                         if (resultSet.next()) {
                             b_id = resultSet.getString("book_id");

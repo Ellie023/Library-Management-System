@@ -17,9 +17,18 @@ public class select1 {
             booksResultSet = selectBooksStmt.executeQuery(); //selectBooksSQL을 실행하고 그 결과를 가져와서 ResultSet 객체인 booksResultSet에 저장
 
             if (!booksResultSet.next()) {
+                String query6 = "SELECT name FROM Members WHERE member_id = ?";
+                selectBooksStmt = connection.prepareStatement(query6);
+                selectBooksStmt.setInt(1, ID);
                 //bookResultSet의 값을 읽기. 값이 없다면 => "대출한 책이 없습니다"라고 출력
-                System.out.println(ID + "님은 대출한 책이 없습니다.");
-            } else {
+                booksResultSet = selectBooksStmt.executeQuery();
+                if (booksResultSet.next()) {
+                    String name = booksResultSet.getString("name");
+
+                    System.out.println(name + "님은 대출한 책이 없습니다.");
+                }
+            }
+                else {
                 //값이 있다면 대출한 책 목록 출력.
                 String memberName = booksResultSet.getString("member_name");
                 String memberID = booksResultSet.getString("member_ID");

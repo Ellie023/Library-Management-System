@@ -75,7 +75,6 @@ public class Main {
                         System.out.print("반납 할 책의 제목을 입력하세요: ");
                         book_title3 = scanner3.nextLine();
                     ReturnManager.returnBook(user_id3,book_title3);
-                    scanner3.nextLine();
                     break;
                 case 4:
                     System.out.println("[[사용자별 대출 현황]]");
