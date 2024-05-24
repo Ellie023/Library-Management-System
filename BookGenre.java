@@ -7,10 +7,8 @@ public class BookGenre {
     public static void numberOfBooksByGenre(String genre) {
         PreparedStatement pstm = null;
         ResultSet resultSet = null;
-        // 데이터베이스 연결
-        Connection connection = DatabaseConnection.getConnection();
+        Connection connection = DatabaseConnection.getConnection(); // 데이터베이스 연결
         try {
-
             // SQL 쿼리문 : 책 테이블에서 종류 속성으로 그룹짓고, 사용자가 입력한 종류를 받아 해당 종류의 책들의 genre 값과 총 책의 개수 반환
             String sql = "SELECT genre, count(genre) AS total_number FROM books GROUP BY genre having genre=?";
 
@@ -24,10 +22,9 @@ public class BookGenre {
             if (resultSet.next()) {
                 String bookGenre = resultSet.getString("genre");
                 int totalNumber = resultSet.getInt("total_number");
-
                 System.out.println(bookGenre + " 종류의 책 보유 권수 : " + totalNumber + "권");
-
-            } else {
+            }
+            else {
                 System.out.println("존재하지 않는 종류입니다.");
             }
 
