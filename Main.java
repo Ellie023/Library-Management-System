@@ -11,7 +11,7 @@ public class Main {
             System.out.println("------------------------------------------");
             System.out.println("Library Management System");
             System.out.println("1: 종류별 책 보유 현황 보기");
-            System.out.println("2: 책 대출");
+            System.out.println("2: 책 대출/예약");
             System.out.println("3: 책 반납");
             System.out.println("4: 사용자별 대출 현황");
             System.out.println("5: 회원 정보 수정");
@@ -28,7 +28,7 @@ public class Main {
                     BookGenre.numberOfBooksByGenre(genre);
                     break;
                 case 2:
-                    System.out.println("[[책 대출하기]]");
+                    System.out.println("[[책 대출/예약하기]]");
                     Scanner scanner2 = new Scanner(System.in);
                     int user_id2;
                     String book_title2;
