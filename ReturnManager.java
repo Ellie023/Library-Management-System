@@ -8,6 +8,7 @@ public class ReturnManager {
 
     // 반납 핵심 메소드
     public static void returnBook(int user_id, String book_name) {
+        // 데이터베이스 연결
         Connection connection = DatabaseConnection.getConnection();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
