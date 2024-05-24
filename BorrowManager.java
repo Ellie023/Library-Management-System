@@ -47,7 +47,7 @@ public class BorrowManager {
                     }
                 }
 
-                // 대출 가능, 예약도 가능
+                // 대출 가능, 예약도 없음
                 if (!borrow && !reservation) {
                     System.out.println("대출할 수 있는 책입니다.");
 
@@ -78,12 +78,10 @@ public class BorrowManager {
                         preparedStatement.executeUpdate();
                         System.out.println("'" + book_name + "'" + " 책이 대출되었습니다.");
                         System.out.println("반납 기한은 " + Date.valueOf(addDays(formattedDate, 14)) + "까지입니다.");
-                        System.out.println("대출/예약 서비스를 종료합니다.");
-                        System.out.println("------------------------------------------");
                     }
                     return;
                 }
-                // 대출 가능, 예약자 불가
+                // 대출 가능, 예약자 있음
                 else if (!borrow && reservation) {
                     // 책 예약자인지 확인하기
                     String query3 = "SELECT * FROM books, reservations WHERE books.book_id = reservations.book_id AND books.title = ? AND reservations.member_id = ?";
@@ -117,16 +115,12 @@ public class BorrowManager {
                                 preparedStatement2.executeUpdate();
                                 System.out.println("'" + book_name + "'" + " 책이 대출되었습니다.");
                                 System.out.println("반납 기한은 " + Date.valueOf(addDays(formattedDate, 14)) + "까지입니다.");
-                                System.out.println("대출/예약 서비스를 종료합니다.");
-                                System.out.println("------------------------------------------");
                             }
                             return;
                         } else {
                             // 대출 불가, 예약 불가
                             System.out.println("이미 예약중인 책입니다.");
                             System.out.println("대출과 예약이 모두 불가능합니다.");
-                            System.out.println("대출/예약 서비스를 종료합니다.");
-                            System.out.println("------------------------------------------");
                             return;
                         }
                     }
@@ -140,16 +134,13 @@ public class BorrowManager {
                         preparedStatement.setString(1, book_name);
                         preparedStatement.setInt(2, user_id);
                         resultSet = preparedStatement.executeQuery();
-                        // 이미 내가 대출한 책이면 그만두기
                         if (resultSet.next()) {
                             System.out.println("이미 같은 책을 대출하셨습니다.");
-                            System.out.println("대출/예약 서비스를 종료합니다.");
-                            System.out.println("------------------------------------------");
                             return;
                         }
                     }
 
-                    // 예약 여부 물어보기
+
                     System.out.println("예약할 수 있는 책입니다. 예약하시겠습니까? (예 / 아니오): ");
                     String reserve = scanner.next();
                     if (reserve.equals("예")) {
@@ -179,23 +170,17 @@ public class BorrowManager {
                             String formattedDate = today.format(formatter);
                             System.out.println("'" + book_name + "'" + "책이 예약되었습니다.");
                             System.out.println("대출할 수 있는 날짜는 " + addDays(date, 1) + "부터입니다.");
-                            System.out.println("대출/예약 서비스를 종료합니다.");
-                            System.out.println("------------------------------------------");
                             return;
                         }
                     } else {
                         // 예약을 원하지 않음
                         System.out.println("감사합니다.");
-                        System.out.println("대출/예약 서비스를 종료합니다.");
-                        System.out.println("------------------------------------------");
                         return;
                     }
                 }
                 // 대출 불가, 예약 불가
                 else {
                     System.out.println("대출과 예약이 모두 불가능합니다.");
-                    System.out.println("대출/예약 서비스를 종료합니다.");
-                    System.out.println("------------------------------------------");
                     return;
                 }
             // 예외 처리
