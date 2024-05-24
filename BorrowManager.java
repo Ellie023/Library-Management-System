@@ -17,6 +17,7 @@ public class BorrowManager {
     // 대출과 예약 핵심 메소드
     public static void borrowBook(int user_id, String book_name) throws SQLException {
         Scanner scanner = new Scanner(System.in);
+        // 데이터베이스 연결
         Connection connection = DatabaseConnection.getConnection();
         ResultSet resultSet = null;
 
