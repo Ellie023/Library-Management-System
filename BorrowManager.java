@@ -47,7 +47,7 @@ public class BorrowManager {
                     }
                 }
 
-                // 대출 가능, 예약 가능
+                // 대출 가능, 예약도 가능
                 if (!borrow && !reservation) {
                     System.out.println("대출할 수 있는 책입니다.");
 
@@ -83,7 +83,7 @@ public class BorrowManager {
                     }
                     return;
                 }
-                // 대출 가능, 예약 불가
+                // 대출 가능, 예약자 불가
                 else if (!borrow && reservation) {
                     // 책 예약자인지 확인하기
                     String query3 = "SELECT * FROM books, reservations WHERE books.book_id = reservations.book_id AND books.title = ? AND reservations.member_id = ?";
@@ -133,6 +133,23 @@ public class BorrowManager {
                 }
                 // 대출 불가, 예약 가능
                 else if (borrow && !reservation) {
+                    // 이미 내가 대출한 책인지 확인
+                    String query9 =
+                            "SELECT * FROM borrowing, books WHERE books.book_id = borrowing.book_id AND title = ? AND member_id = ?";
+                    try (PreparedStatement preparedStatement = connection.prepareStatement(query9)) {
+                        preparedStatement.setString(1, book_name);
+                        preparedStatement.setInt(2, user_id);
+                        resultSet = preparedStatement.executeQuery();
+                        // 이미 내가 대출한 책이면 그만두기
+                        if (resultSet.next()) {
+                            System.out.println("이미 같은 책을 대출하셨습니다.");
+                            System.out.println("대출/예약 서비스를 종료합니다.");
+                            System.out.println("------------------------------------------");
+                            return;
+                        }
+                    }
+
+                    // 예약 여부 물어보기
                     System.out.println("예약할 수 있는 책입니다. 예약하시겠습니까? (예 / 아니오): ");
                     String reserve = scanner.next();
                     if (reserve.equals("예")) {
