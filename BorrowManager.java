@@ -47,7 +47,7 @@ public class BorrowManager {
                     }
                 }
 
-                // 대출 가능, 예약도 없음
+                // 대출 가능, 예약 가능
                 if (!borrow && !reservation) {
                     System.out.println("대출할 수 있는 책입니다.");
 
@@ -83,7 +83,7 @@ public class BorrowManager {
                     }
                     return;
                 }
-                // 대출 가능, 예약자 있음
+                // 대출 가능, 예약 불가
                 else if (!borrow && reservation) {
                     // 책 예약자인지 확인하기
                     String query3 = "SELECT * FROM books, reservations WHERE books.book_id = reservations.book_id AND books.title = ? AND reservations.member_id = ?";
