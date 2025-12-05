@@ -1,9 +1,3 @@
-좋다. 아래에 **🇺🇸 영어 버전 README**와 **🇰🇷 한국어 버전 README**를 각각 **완성형 형태**로 제공한다.
-서로 독립적으로 사용 가능하며, GitHub에서 바로 적용해도 문제 없도록 구성했다.
-
----
-
-# 🇺🇸 **English README – Library Management System**
 
 # 📚 Library Management System
 
