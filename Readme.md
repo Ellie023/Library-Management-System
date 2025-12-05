@@ -35,7 +35,7 @@
 
 ### 3\. 보안 및 효율성을 고려한 DB 접근 (`DatabaseConnection`, `select1`)
 
-  * **PreparedStatement 활용**: 모든 SQL 쿼리에 `PreparedStatement`를 사용하여 **SQL Injection 공격을 예방**하고, 쿼리 캐싱을 통해 성능을 최적화했다.
+  * **PreparedStatement 활용**: 모든 SQL 쿼리에 `PreparedStatement`를 사용하여 **SQL Injection 공격을 방지지**하고, 쿼리 캐싱을 통해 성능을 최적화했다.
   * **View 활용**: 복잡한 조인(Join) 쿼리 대신 DB단에서 `MemberBorrowedBooks` View를 생성하고 이를 조회함으로써, 애플리케이션 레벨의 쿼리 복잡도를 낮추고 데이터 조회 성능을 개선했다.
 
 ## 🗄️ Database ERD & Schema
